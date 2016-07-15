@@ -1,0 +1,1 @@
+# Tinkering this some ways of defining and brute forcing sports lineup combos.
