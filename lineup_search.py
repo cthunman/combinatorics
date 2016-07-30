@@ -28,16 +28,7 @@ def sort_by(salary_list, key):
 
 	return sorted_salaries
 
-def scan_baseball_lineups(sorted_salaries, num_lineups):
-	selections = {
-		'P' : 2,
-		'C' : 1,
-		'1B' : 1,
-		'2B' : 1,
-		'3B' : 1,
-		'SS' : 1,
-		'OF' : 3,
-	}
+def scan_lineups(sorted_salaries, num_lineups, selections):
 
 	index_map = {}
 	for s in selections:
@@ -46,11 +37,19 @@ def scan_baseball_lineups(sorted_salaries, num_lineups):
 	current_lineup = []
 	for s in selections:
 		for i in range(selections[s]):
+			print s, i
+			# print sorted_salaries[s]
+			current_lineup.append(sorted_salaries[s][index_map[s]])
 			index_map[s] = index_map[s] + 1
-			
 
-	for i in range(num_lineups):
-		current_lineup = []
+	print current_lineup
+	salary_total = 0
+	for p in current_lineup:
+		salary_total = salary_total + int(p['Salary'])
+	print salary_total
+
+	# for i in range(num_lineups):
+	# 	current_lineup = []
 		# for s in selections:
 
 
@@ -59,10 +58,22 @@ def main():
 
 	sorted_salaries = sort_by(salary_list, 'Position')
 	for s in sorted_salaries:
-		print '-----------------'
 		print s
-		for r in sorted_salaries[s]:
-			print r
+	# for s in sorted_salaries:
+	# 	print '-----------------'
+	# 	print s
+	# 	for r in sorted_salaries[s]:
+	# 		print r
+	selections = {
+		'SP' : 2,
+		'C' : 1,
+		'1B' : 1,
+		'2B' : 1,
+		'3B' : 1,
+		'SS' : 1,
+		'OF' : 3,
+	}
+	scan_lineups(sorted_salaries, 25, selections)
 
 if __name__ == '__main__':
 	main()
