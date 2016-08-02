@@ -1,4 +1,4 @@
-import csv, copy
+import csv, copy, sys
 from decimal import *
 
 def read_salary_data(csv_file):
@@ -59,14 +59,18 @@ def scan_lineups(sorted_salaries, num_lineups, selections):
 		current_lineup.append(sorted_salaries[worst_player['Position']][index_map[worst_player['Position']]])
 		index_map[worst_player['Position']] = index_map[worst_player['Position']] + 1
 		salary_total = 0
+		points_total = 0
 		for p in current_lineup:
 			salary_total = salary_total + int(p['Salary'])
+			points_total = points_total + Decimal(p['AvgPointsPerGame'])
 		if salary_total < 50000:
 			print '-------------'
 			print current_lineup
-			print salary_total
+			print 'salary_total ' + unicode(salary_total)
+			print 'points_total ' + unicode(points_total)
+
 			print '-------------'
-			num_lineups = num_lineups + 1
+			lineup_count = lineup_count + 1
 
 	
 	# for i in range(num_lineups):
@@ -75,7 +79,27 @@ def scan_lineups(sorted_salaries, num_lineups, selections):
 
 
 def main():
-	salary_list = read_salary_data('data/DKSalariesGolf.csv')
+	sport = sys.argv[1]
+	print sport
+
+	if sport == 'baseball':
+		filename = 'data/Baseball20160802.csv'
+		selections = {
+			'SP' : 2,
+			'C' : 1,
+			'1B' : 1,
+			'2B' : 1,
+			'3B' : 1,
+			'SS' : 1,
+			'OF' : 3,
+		}
+	elif sport == 'golf':
+		filename = 'data/DKSalariesGolf.csv'
+		selections = {
+			'G' : 6
+		}
+
+	salary_list = read_salary_data(filename)
 
 	sorted_salaries = sort_by(salary_list, 'Position')
 	for s in sorted_salaries:
@@ -86,19 +110,8 @@ def main():
 	# 	for r in sorted_salaries[s]:
 	# 		print r
 	
-	# selections = {
-	# 	'SP' : 2,
-	# 	'C' : 1,
-	# 	'1B' : 1,
-	# 	'2B' : 1,
-	# 	'3B' : 1,
-	# 	'SS' : 1,
-	# 	'OF' : 3,
-	# }
-	selections = {
-		'G' : 6
-	}
-	scan_lineups(sorted_salaries, 25, selections)
+	
+	scan_lineups(sorted_salaries, 5, selections)
 
 if __name__ == '__main__':
 	main()
