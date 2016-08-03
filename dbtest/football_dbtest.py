@@ -1,9 +1,4 @@
-import mlbgame
 import nflgame
-games = mlbgame.day(2016, 8, 1)
-print 'BASEBALL'
-for game in games:
-	print game
 
 print 'FOOTBALL'
 games = nflgame.games(2015, week=6)
