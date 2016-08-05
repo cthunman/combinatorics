@@ -94,7 +94,7 @@ def main():
 			'OF' : 3,
 		}
 	elif sport == 'golf':
-		filename = 'data/DKSalariesGolf.csv'
+		filename = 'data/Golf20160804.csv'
 		selections = {
 			'G' : 6
 		}
